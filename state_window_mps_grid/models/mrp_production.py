@@ -45,4 +45,4 @@ class MrpProduction(models.Model):
                 "bom_id": bom_id,
                 "date": date,
                 measure_field_name: value,
-            })
+            }).action_confirm()
