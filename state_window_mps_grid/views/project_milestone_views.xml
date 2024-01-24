@@ -13,5 +13,16 @@
             </field>
         </field>
     </record>
+    <record id="state_window_project_milestone_view_tree" model="ir.ui.view">
+        <field name="name">state.window.project.milestone.view.tree</field>
+        <field name="model">project.milestone</field>
+        <field name="inherit_id" ref="project.project_milestone_view_tree" />
+        <field name="arch" type="xml">
+            <field name="is_reached" position="after">
+                <field name="bom_id" />
+                <field name="quantity_needed" />
+            </field>
+        </field>
+        </record>
 </data>
 </odoo>
