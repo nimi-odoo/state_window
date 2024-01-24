@@ -30,7 +30,7 @@
                     <range name="month" string="Month" span="month" step="day" hotkey="m" />
                     <range name="year" string="Year" span="year" step="week" hotkey="y" default="1" />
                 </field>
-                <field name="product_qty" type="measure" widget="float" />
+                <field name="product_qty" type="measure" widget="float" string="Total Quantity" />
             </grid> 
         </field>
     </record>
