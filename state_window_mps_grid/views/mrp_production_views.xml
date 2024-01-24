@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+    <record id="state_window_mrp_production_view_form" model="ir.ui.view">
+        <field name="name">state.window.mrp.production.view.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="project_id" />
+                <field name="milestone_id" />
+                <field name="date" string="Planned Date" />
+                <field name="bom_id" />
+                <field name="quantity_needed" />
+            </field>
+        </field>
+    </record>
+
+    <record id="state_window_mps_view_grid_mo" model="ir.ui.view">
+        <field name="name">state.window.mps.view.grid.mo</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <grid string="Planner" editable="1" js_class="state_window_grid" barchart_total="1" create_inline="1" display_empty="1">
+                <field name="project_id" type="row" section="1" />
+                <field name="milestone_id" type="row" widget="state_window_milestone_many2one" />
+                <field name="bom_id" type="row" />
+                <field name="date" type="col">
+                    <range name="day" string="Day" span="day" step="day" hotkey="e" />
+                    <range name="week" string="Week" span="week" step="day" hotkey="w" />
+                    <range name="month" string="Month" span="month" step="day" hotkey="m" />
+                    <range name="year" string="Year" span="year" step="week" hotkey="y" default="1" />
+                </field>
+                <field name="product_qty" type="measure" widget="float" />
+            </grid> 
+        </field>
+    </record>
+
+    <record id="action_state_window_mps" model="ir.actions.act_window">
+        <field name="name">MPS</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,form,grid</field>
+        <field name="view_id" ref="state_window_mps_grid.state_window_mps_view_grid_mo" />
+    </record>
+
+
+    <menuitem id="menu_state_window_mps_planning" name="MPS" sequence="4" parent="mrp.mrp_planning_menu_root">
+        <menuitem id="menu_state_window_mps" name="MPS Grid" sequence="1" action="action_state_window_mps" />
+    </menuitem>
+
+</data>
+</odoo>

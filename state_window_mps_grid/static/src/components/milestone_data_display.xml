@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="state_window_mps_grid.MilestoneDataDisplay">
+        <span>
+            <span class="o_grid_row_data_separator d-none d-md-inline px-2 text-300">|</span>
+            <span>Needed Quantity: <t t-out="quantityNeeded" /></span>
+        </span>
+    </t>
+</templates>
