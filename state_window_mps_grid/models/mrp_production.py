@@ -46,3 +46,8 @@ class MrpProduction(models.Model):
                 "date": date,
                 measure_field_name: value,
             }).action_confirm()
+
+    def action_confirm(self):
+        for production in self:
+            production.date_start = production.date
+        return super().action_confirm()
