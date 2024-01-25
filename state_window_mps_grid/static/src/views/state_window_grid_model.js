@@ -15,11 +15,13 @@ export class StateWindowGridDataPoint extends GridDataPoint {
     async _initialiseData() {
         await super._initialiseData();
         this.data.milestoneData = {};
+        this.data.earliestDate = {};
     }
 
     get stateWindowMilestonePromises() {
         return [
-            this._fetchMilestoneData("milestone_id")
+            this._fetchMilestoneData("milestone_id"),
+            this._fetchEarliestDate("bom_id"),
         ];
     }
 
@@ -41,6 +43,16 @@ export class StateWindowGridDataPoint extends GridDataPoint {
         ]);
 
         this.data.milestoneData[fieldName] = result;
+    }
+
+    async _fetchEarliestDate(fieldName) {
+        console.log("woooooah break here") 
+        const field = this.fieldsInfo["bom_id"]
+        const fieldValues = this._getFieldValuesInSectionAndRows(field);
+        const result = await this.orm.call(field.relation, "get_earliest_date", [
+            fieldValues,
+        ]); 
+        this.data.earliestDate[fieldName] = result;
     }
 
     _getFieldValuesInSectionAndRows(field) {
@@ -139,6 +151,9 @@ export class StateWindowGridModel extends GridModel {
 
     get milestoneData() {
         return this.data.milestoneData;
+    }
+    get earliestDate() {
+        return this.data.earliestDate;
     }
 
 }

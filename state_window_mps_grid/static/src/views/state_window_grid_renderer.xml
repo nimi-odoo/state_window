@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="state_window_mps_grid.StateWindowRenderer" t-inherit="web_grid.Renderer">
+        <xpath expr="//t[@t-call='web_grid.Row']" position="attributes">
+            <attribute name="t-call">state_window_mps_grid.StateWindowRow</attribute>
+        </xpath>
+    </t>
+
+
+    <t t-name="state_window_mps_grid.StateWindowRow" t-inherit="web_grid.Row">
+        <xpath expr="//div[hasclass('o_grid_cell_readonly')]//span" position="attributes">
+            <attribute name="t-att-class">{
+                'text-900 text-opacity-25': row.cells[column.id].value === 0,
+                'text-danger': getMoPossibleStatus(row, column) == 1,
+            }</attribute>
+        </xpath>
+    </t>
+</templates>

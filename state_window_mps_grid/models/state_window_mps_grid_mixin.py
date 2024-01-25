@@ -28,3 +28,20 @@ class StateWindowMpsGridMixin(models.AbstractModel):
 
     def get_floor_and_quantity_needed_domain(self, ids):
         return [("id", "in", ids)]
+
+    @api.model
+    def get_earliest_date(self, ids):
+        records = self.search_read(
+            self.get_earliest_date_domain(ids),
+            ["id"],
+        )
+
+        records_per_id = dict.fromkeys(ids, {})
+        for record in records:
+            records_per_id[record['id']] = {
+                "earliest_date": self.env["report.mrp.report_bom_structure"].get_html(record["id"]).get("lines").get("earliest_date")
+            }
+        return records_per_id
+
+    def get_earliest_date_domain(self, ids):
+        return [("id", "in", ids)]
