@@ -1,5 +1,7 @@
 
-from odoo import api, models
+from odoo import api, fields, models
+from datetime import date, timedelta
+
 from odoo.tools import float_round
 
 
@@ -39,7 +41,8 @@ class StateWindowMpsGridMixin(models.AbstractModel):
         records_per_id = dict.fromkeys(ids, {})
         for record in records:
             records_per_id[record['id']] = {
-                "earliest_date": self.env["report.mrp.report_bom_structure"].get_html(record["id"]).get("lines").get("earliest_date")
+                # "earliest_date": self.env["report.mrp.report_bom_structure"].get_html(record["id"]).get("lines").get("earliest_date")
+                "earliest_date": (fields.date.today() + timedelta(days=self.env["mrp.bom"].browse(record["id"]).produce_delay)).strftime("%Y-%m-%d %H:%M:%S")
             }
         return records_per_id
 
